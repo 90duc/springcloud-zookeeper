@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: micro-service
+  profiles:
+    active: dev
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+    default-property-inclusion: ALWAYS
+  cloud:
+    zookeeper:
+      enabled: true
+      connect-string: 192.168.31.188:2181
+      discovery:
+        enabled: true
+        root: /services/springcloud-zookeeper #zookeeper中的根路径，即服务注册路径:${spring.cloud.zookeeper.config.root}/${spring.application.name}
+        register: true
+      config:
+        enabled: true
+        root: /config/springcloud-zookeeper  #zookeeper中的根路径，即服务配置信息的路径:${spring.cloud.zookeeper.config.root}/${spring.application.name},${spring.profiles.active}
+        watcher:
+          enabled: true
+
+server:
+  port: 8081

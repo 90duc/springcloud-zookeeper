@@ -1,0 +1,49 @@
+spring:
+  application:
+    name: zuul-gateway
+  profiles:
+    active: dev
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+    default-property-inclusion: ALWAYS
+  cloud:
+    zookeeper:
+      enabled: true
+      connect-string: 192.168.31.188:2181
+      discovery:
+        enabled: true
+        root: /services/springcloud-zookeeper #zookeeper中的根路径，即服务注册路径:${spring.cloud.zookeeper.config.root}/${spring.application.name}
+        register: true
+      config:
+        enabled: true
+        root: /config/springcloud-zookeeper  #zookeeper中的根路径，即服务配置信息的路径:${spring.cloud.zookeeper.config.root}/${spring.application.name},${spring.profiles.active}
+        watcher:
+          enabled: true
+
+server:
+  port: 8082
+
+zuul:
+  strip-prefix: true #转发路径截断匹配前缀
+#  prefix: "/api"
+  add-proxy-headers: false
+  set-content-length: true
+  semaphore:
+    max-semaphores: 600
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 120000
+ribbon:
+  ReadTimeout: 240000
+  ConnectTimeout: 2000
+  MaxAutoRetries: 0
+  MaxAutoRetriesNextServer: 1
+  eager-load:
+    enabled: true
+    clients: micro-service
