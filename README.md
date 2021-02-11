@@ -11,7 +11,7 @@ zuul-gateway  zuul网关
 springcloud-gateway  gateway网关
 
 <br/>
-（2）环境
+2、环境
 
 zookeeper 3.6.2
 
@@ -20,6 +20,6 @@ springboot 2.1.9
 springcloud Greenwich
 
 <br/>
-二、项目zookeeper地址
+3、项目zookeeper地址
 
 192.168.31.188:2181
